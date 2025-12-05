@@ -19,6 +19,12 @@ int main()
     cout << "Wybierz: " << endl;
     cout << "1 - przelicz Fahr->Celsius\n2 - przelicz Fahr->Kelwin\n3 - przelicz Celsius->Fahr\n4 - przelicz Celsius->Kelwin\n5 - przelicz Kelwin->Celsius\n6 - przelicz Kelwin->Fahr\n7 - zakoncz dzialanie programu\n ";
     cin >> opcja;
+
+    if (opcja == 1 || opcja == 2) {
+        cout << "Podaj temperature do przeliczenia w F \n";
+        
+
+    }
     
     wyswietlanie(opcja);
 
