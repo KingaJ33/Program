@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+ #include <stdlib.h>
 using namespace std;
 
 float FtoC(float stopnie);
@@ -23,43 +24,57 @@ int opcja;
 
 int main()
 {
+    while (true) {
 
-    cout << "Wybierz: " << endl;
-    cout << "1 - przelicz Fahr->Celsius\n2 - przelicz Fahr->Kelwin\n3 - przelicz Celsius->Fahr\n4 - przelicz Celsius->Kelwin\n5 - przelicz Kelwin->Celsius\n6 - przelicz Kelwin->Fahr\n7 - zakoncz dzialanie programu\n ";
-    cin >> opcja;
+        system("cls");
 
-    float wynik_sprawdzenia;
+        cout << "MENU " << endl;
+        cout << "Wybierz: " << endl;
+        cout << "1 - przelicz Fahr->Celsius\n2 - przelicz Fahr->Kelwin\n3 - przelicz Celsius->Fahr\n4 - przelicz Celsius->Kelwin\n5 - przelicz Kelwin->Celsius\n6 - przelicz Kelwin->Fahr\n7 - zakoncz dzialanie programu\n ";
+        cout << "Wybrano: ";
+        cin >> opcja;
 
-
-    if (opcja == 1 || opcja == 2) {
-        pobierzF();
-        wynik_sprawdzenia = check(F, 'F');
-
-        if (wynik_sprawdzenia != -999.0) {
-            wyswietlanie(opcja);
+        if (opcja == 7) {
+            return 0;
         }
 
-    }
-    if (opcja == 3 || opcja == 4) {
-        pobierzC();
-        wynik_sprawdzenia = check(C, 'C');
 
-        if (wynik_sprawdzenia != -999.0) {
-            wyswietlanie(opcja);
+        float wynik_sprawdzenia;
+        bool wybrano_przeliczanie = false;
+
+
+        if (opcja == 1 || opcja == 2) {
+            pobierzF();
+            wynik_sprawdzenia = check(F, 'F');
+
+            if (wynik_sprawdzenia != -999.0) {
+                wyswietlanie(opcja);
+            }
+
         }
+        if (opcja == 3 || opcja == 4) {
+            pobierzC();
+            wynik_sprawdzenia = check(C, 'C');
 
-    }
-    if (opcja == 5 || opcja == 6) {
-        pobierzK();
-        wynik_sprawdzenia = check(K, 'K');
+            if (wynik_sprawdzenia != -999.0) {
+                wyswietlanie(opcja);
+            }
 
-        if (wynik_sprawdzenia != -999.0) {
-            wyswietlanie(opcja);
         }
+        if (opcja == 5 || opcja == 6) {
+            pobierzK();
+            wynik_sprawdzenia = check(K, 'K');
+
+            if (wynik_sprawdzenia != -999.0) {
+                wyswietlanie(opcja);
+            }
+
+        }
+        cout << "\nNacisnij ENTER, aby wrocic do menu ";
+        cin.ignore(); 
+        cin.get();
 
     }
-    
-
    
     return 0;
 }
