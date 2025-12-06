@@ -2,24 +2,11 @@
 //
 
 #include <iostream>
- #include <stdlib.h>
+#include <stdlib.h>
+#include "headerFile.h"
+
+
 using namespace std;
-
-float FtoC(float stopnie);
-float FtoK(float stopnie);
-float CtoF(float stopnie);
-float CtoK(float stopnie);
-float KtoC(float stopnie);
-float KtoF(float stopnie);
-float wyswietlanie(int x);
-float pobierzF();
-float pobierzC();
-float pobierzK();
-float check(float temp, char stopnie);
-void historia(float stara, float nowa, char stary, char nowy);
-
-
-
 
 float F, K, C;
 int opcja;
@@ -115,7 +102,7 @@ int main()
 
         }
 
-        if (opcja < 1 || opcja > 7) {
+        if (opcja < 1 || opcja > 8) {
             cout << "Nieznana opcja!" << endl;
         }
 
