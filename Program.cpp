@@ -37,7 +37,7 @@ int main()
 
         cout << "MENU " << endl;
         cout << "Wybierz: " << endl;
-        cout << "1 - przelicz Fahr->Celsius\n2 - przelicz Fahr->Kelwin\n3 - przelicz Celsius->Fahr\n4 - przelicz Celsius->Kelwin\n5 - przelicz Kelwin->Celsius\n6 - przelicz Kelwin->Fahr\n7 - zakoncz dzialanie programu\n ";
+        cout << "1 - przelicz Fahr->Celsius\n2 - przelicz Fahr->Kelwin\n3 - przelicz Celsius->Fahr\n4 - przelicz Celsius->Kelwin\n5 - przelicz Kelwin->Celsius\n6 - przelicz Kelwin->Fahr\n7 - zakoncz dzialanie programu\n8 - pokaz historie\n ";
         cout << "Wybrano: ";
         cin >> opcja;
 
@@ -99,6 +99,18 @@ int main()
                 else if (opcja == 6) {
                     historia(K, wynik_koncowy, 'K', 'F');
                 }
+            }
+
+        }
+
+        if (opcja == 8) {
+            for (int i = 0; i < (dataCounter/2); i++) {
+
+                int iS = i * 2;
+                int iN = i * 2 + 1;
+
+                cout << " < " << i << " > " << tab[iS] << tab2[iS] << " = " << tab[iN] << tab2[iN] << endl;
+              
             }
 
         }
