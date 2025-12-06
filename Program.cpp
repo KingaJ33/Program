@@ -165,19 +165,19 @@ void wyswietlanie(int x) {
 }
 
 float pobierzF() {
-    cout << "Podaj temperature do przeliczenia w stopniach Fahrenheita \n";
+    cout << "Podaj temperature do przeliczenia \n";
     cin >> F;
     return F;
 }
 
 float pobierzC() {
-    cout << "Podaj temperature do przeliczenia w stopniach Celsjusza \n";
+    cout << "Podaj temperature do przeliczenia  \n";
     cin >> C;
     return C;
 }
 
 float pobierzK() {
-    cout << "Podaj temperature do przeliczenia w stopniach Kelwina \n";
+    cout << "Podaj temperature do przeliczenia  \n";
     cin >> K;
     return K;
 }
