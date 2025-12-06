@@ -11,22 +11,54 @@ float CtoK(float stopnie);
 float KtoC(float stopnie);
 float KtoF(float stopnie);
 void wyswietlanie(int x);
+float pobierzF();
+float pobierzC();
+float pobierzK();
+float check(float temp, char stopnie);
+
+
+
+float F, K, C;
+int opcja;
 
 int main()
 {
-    int opcja;
 
     cout << "Wybierz: " << endl;
     cout << "1 - przelicz Fahr->Celsius\n2 - przelicz Fahr->Kelwin\n3 - przelicz Celsius->Fahr\n4 - przelicz Celsius->Kelwin\n5 - przelicz Kelwin->Celsius\n6 - przelicz Kelwin->Fahr\n7 - zakoncz dzialanie programu\n ";
     cin >> opcja;
 
+    float wynik_sprawdzenia;
+
+
     if (opcja == 1 || opcja == 2) {
-        cout << "Podaj temperature do przeliczenia w F \n";
-        
+        pobierzF();
+        wynik_sprawdzenia = check(F, 'F');
+
+        if (wynik_sprawdzenia != -999.0) {
+            wyswietlanie(opcja);
+        }
+
+    }
+    if (opcja == 3 || opcja == 4) {
+        pobierzC();
+        wynik_sprawdzenia = check(C, 'C');
+
+        if (wynik_sprawdzenia != -999.0) {
+            wyswietlanie(opcja);
+        }
+
+    }
+    if (opcja == 5 || opcja == 6) {
+        pobierzK();
+        wynik_sprawdzenia = check(K, 'K');
+
+        if (wynik_sprawdzenia != -999.0) {
+            wyswietlanie(opcja);
+        }
 
     }
     
-    wyswietlanie(opcja);
 
    
     return 0;
@@ -63,61 +95,97 @@ float KtoF(float stopnie) {
 }
 
 void wyswietlanie(int x) {
-    float fahr, celsius, kelwin;
+    float fahr = F, celsius = C, kelwin = K;
+
 
     switch (x) {
     case 1:
-        for (fahr = 0.0; fahr <= 200; fahr = fahr + 20) {
-            celsius = FtoC(fahr);
-            cout << fahr << "   " << celsius << endl;
-        }
+        celsius = FtoC(fahr);
+        cout << fahr << "   " << celsius << endl;
+
         break;
 
     case 2:
-        for (fahr = 0.0; fahr <= 200; fahr = fahr + 20) {
-            kelwin = FtoK(fahr);
-            cout << fahr << "   " << kelwin << endl;
-        }
+
+        kelwin = FtoK(fahr);
+        cout << fahr << "   " << kelwin << endl;
+
         break;
 
     case 3:
-        for (celsius = 0.0; celsius <= 200; celsius = celsius + 20) {
-            fahr = CtoF(celsius);
-            cout << celsius << "   " << fahr << endl;
-        }
+
+        fahr = CtoF(celsius);
+        cout << celsius << "   " << fahr << endl;
+
         break;
 
     case 4:
-        for (celsius = 0.0; celsius <= 200; celsius = celsius + 20) {
-            kelwin = CtoK(celsius);
-            cout << celsius << "   " << kelwin << endl;
-        }
+
+        kelwin = CtoK(celsius);
+        cout << celsius << "   " << kelwin << endl;
+
         break;
 
     case 5:
-        for (kelwin = 0.0; kelwin <= 200; kelwin = kelwin + 20) {
-            celsius = KtoC(kelwin);
-            cout << kelwin << "   " << celsius << endl;
-        }
+
+        celsius = KtoC(kelwin);
+        cout << kelwin << "   " << celsius << endl;
+
         break;
 
     case 6:
-        for (kelwin = 0.0; kelwin <= 200; kelwin = kelwin + 20) {
-            fahr = KtoF(kelwin);
-            cout << kelwin << "   " << fahr << endl;
-        }
+
+        fahr = KtoF(kelwin);
+        cout << kelwin << "   " << fahr << endl;
+
         break;
 
     case 7:
-        return ;
+        return;
 
     default:
-        return ;
+        return;
 
     }
-
 }
 
+float pobierzF() {
+    cout << "Podaj temperature do przeliczenia w stopniach Fahrenheita \n";
+    cin >> F;
+    return F;
+}
+
+float pobierzC() {
+    cout << "Podaj temperature do przeliczenia w stopniach Celsjusza \n";
+    cin >> C;
+    return C;
+}
+
+float pobierzK() {
+    cout << "Podaj temperature do przeliczenia w stopniach Kelwina \n";
+    cin >> K;
+    return K;
+}
+
+float check(float temp, char stopnie) {
+
+   if (temp < 0 && stopnie == 'K') {
+       cout << "Nie ma takiej temperatury.Jeśli ta funkcja nie zwróci - 999.0 w wyniku, to oznacza, że to co zwróciła jest prawidłowątemperaturą i można jej użyć do przeliczenia." << endl;
+       return -999.0;
+   }
+
+   if (temp < -273.15 && stopnie == 'C') {
+       cout << "Nie ma takiej temperatury.Jeśli ta funkcja nie zwróci - 999.0 w wyniku, to oznacza, że to co zwróciła jest prawidłowątemperaturą i można jej użyć do przeliczenia." << endl;
+       return -999.0;
+   }
+
+   if (temp < -459.67 && stopnie == 'F') {
+       cout << "Nie ma takiej temperatury.Jeśli ta funkcja nie zwróci - 999.0 w wyniku, to oznacza, że to co zwróciła jest prawidłowątemperaturą i można jej użyć do przeliczenia." << endl;
+       return -999.0;
+   }
+
+   return temp;
+}
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
 // Debugowanie programu: F5 lub menu Debugowanie > Rozpocznij debugowanie
