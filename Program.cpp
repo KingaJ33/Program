@@ -16,7 +16,7 @@ float pobierzF();
 float pobierzC();
 float pobierzK();
 float check(float temp, char stopnie);
-void historia(float stara, float nowa);
+void historia(float stara, float nowa, char stary, char nowy);
 
 
 
@@ -24,6 +24,7 @@ void historia(float stara, float nowa);
 float F, K, C;
 int opcja;
 double tab[100] = { 0 };
+char tab2[100] = { 0 };
 int dataCounter = 0;
 
 
@@ -57,7 +58,13 @@ int main()
             if (wynik_sprawdzenia != -999.0) {
                 
                 wynik_koncowy = wyswietlanie(opcja);
-                historia(F, wynik_koncowy);
+
+                if (opcja == 1) {
+                    historia(F, wynik_koncowy, 'F', 'C');
+                }
+                else if (opcja == 2) {
+                    historia(F, wynik_koncowy, 'F', 'K');
+                }
             }
 
         }
@@ -68,7 +75,13 @@ int main()
             if (wynik_sprawdzenia != -999.0) {
 
                 wynik_koncowy = wyswietlanie(opcja);
-                historia(C, wynik_koncowy);
+
+                if (opcja == 3) {
+                    historia(C, wynik_koncowy, 'C', 'F');
+                }
+                else if (opcja == 4) {
+                    historia(C, wynik_koncowy, 'C', 'K');
+                }
             }
 
         }
@@ -79,7 +92,13 @@ int main()
             if (wynik_sprawdzenia != -999.0) {
 
                 wynik_koncowy = wyswietlanie(opcja);
-                historia(K, wynik_koncowy);
+
+                if (opcja == 5) {
+                    historia(K, wynik_koncowy, 'K', 'C');
+                }
+                else if (opcja == 6) {
+                    historia(K, wynik_koncowy, 'K', 'F');
+                }
             }
 
         }
@@ -100,12 +119,16 @@ int main()
     return 0;
 }
 
-void historia(float stara, float nowa) {
+void historia(float stara, float nowa, char stary, char nowy) {
 
     if (dataCounter < 99) {
 
         tab[dataCounter] = stara;
+        tab2[dataCounter] = stary;
         tab[dataCounter + 1] = nowa;
+        tab2[dataCounter + 1] = nowy;
+
+
         dataCounter += 2;
         cout << "Zapisano wynik do historii" << endl;
     }
