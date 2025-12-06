@@ -11,19 +11,25 @@ float CtoF(float stopnie);
 float CtoK(float stopnie);
 float KtoC(float stopnie);
 float KtoF(float stopnie);
-void wyswietlanie(int x);
+float wyswietlanie(int x);
 float pobierzF();
 float pobierzC();
 float pobierzK();
 float check(float temp, char stopnie);
+void historia(float stara, float nowa);
+
 
 
 
 float F, K, C;
 int opcja;
+double tab[100] = { 0 };
+int dataCounter = 0;
+
 
 int main()
 {
+
     while (true) {
 
         system("cls");
@@ -40,6 +46,7 @@ int main()
 
 
         float wynik_sprawdzenia;
+        float wynik_koncowy = 0;
         bool wybrano_przeliczanie = false;
 
 
@@ -48,7 +55,9 @@ int main()
             wynik_sprawdzenia = check(F, 'F');
 
             if (wynik_sprawdzenia != -999.0) {
-                wyswietlanie(opcja);
+                
+                wynik_koncowy = wyswietlanie(opcja);
+                historia(F, wynik_koncowy);
             }
 
         }
@@ -57,7 +66,9 @@ int main()
             wynik_sprawdzenia = check(C, 'C');
 
             if (wynik_sprawdzenia != -999.0) {
-                wyswietlanie(opcja);
+
+                wynik_koncowy = wyswietlanie(opcja);
+                historia(C, wynik_koncowy);
             }
 
         }
@@ -66,7 +77,9 @@ int main()
             wynik_sprawdzenia = check(K, 'K');
 
             if (wynik_sprawdzenia != -999.0) {
-                wyswietlanie(opcja);
+
+                wynik_koncowy = wyswietlanie(opcja);
+                historia(K, wynik_koncowy);
             }
 
         }
@@ -74,10 +87,27 @@ int main()
         cin.ignore(); 
         cin.get();
 
+       
+       
     }
    
     return 0;
 }
+
+void historia(float stara, float nowa) {
+
+    if (dataCounter < 99) {
+
+        tab[dataCounter] = stara;
+        tab[dataCounter + 1] = nowa;
+        dataCounter += 2;
+        cout << "Zapisano wynik do historii" << endl;
+    }
+    else {
+        cout << "Tablica historii jest pelna!" << endl;
+    }
+}
+
 
 float FtoC(float stopnie) { 
     float wynik = (5.0 / 9.0) * (stopnie - 32.0);
@@ -109,59 +139,61 @@ float KtoF(float stopnie) {
     return wynik;
 }
 
-void wyswietlanie(int x) {
+float wyswietlanie(int x) {
     float fahr = F, celsius = C, kelwin = K;
-
+    float wynik;
 
     switch (x) {
     case 1:
-        celsius = FtoC(fahr);
-        cout << fahr << "   " << celsius << endl;
+        wynik = FtoC(fahr);
+        cout << fahr << "   " << wynik << endl;
 
         break;
 
     case 2:
 
-        kelwin = FtoK(fahr);
-        cout << fahr << "   " << kelwin << endl;
+        wynik = FtoK(fahr);
+        cout << fahr << "   " << wynik << endl;
 
         break;
 
     case 3:
 
-        fahr = CtoF(celsius);
-        cout << celsius << "   " << fahr << endl;
+        wynik = CtoF(celsius);
+        cout << celsius << "   " << wynik << endl;
 
         break;
 
     case 4:
 
-        kelwin = CtoK(celsius);
-        cout << celsius << "   " << kelwin << endl;
+        wynik = CtoK(celsius);
+        cout << celsius << "   " << wynik << endl;
 
         break;
 
     case 5:
 
-        celsius = KtoC(kelwin);
-        cout << kelwin << "   " << celsius << endl;
+        wynik = KtoC(kelwin);
+        cout << kelwin << "   " << wynik << endl;
 
         break;
 
     case 6:
 
-        fahr = KtoF(kelwin);
-        cout << kelwin << "   " << fahr << endl;
+        wynik = KtoF(kelwin);
+        cout << kelwin << "   " << wynik << endl;
 
         break;
 
     case 7:
-        return;
+        return 0;
 
     default:
-        return;
+        return 0;
 
     }
+
+    return wynik;
 }
 
 float pobierzF() {
