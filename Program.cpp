@@ -185,17 +185,17 @@ float pobierzK() {
 float check(float temp, char stopnie) {
 
    if (temp < 0 && stopnie == 'K') {
-       cout << "Nie ma takiej temperatury.Jeśli ta funkcja nie zwróci - 999.0 w wyniku, to oznacza, że to co zwróciła jest prawidłowątemperaturą i można jej użyć do przeliczenia." << endl;
+       cout << "Nie ma takiej temperatury.Jesli ta funkcja nie zwroci - 999.0 w wyniku, to oznacza, ze to co zwrocila jest prawidlowa temperatura i mozna jej uzyc do przeliczenia." << endl;
        return -999.0;
    }
 
    if (temp < -273.15 && stopnie == 'C') {
-       cout << "Nie ma takiej temperatury.Jeśli ta funkcja nie zwróci - 999.0 w wyniku, to oznacza, że to co zwróciła jest prawidłowątemperaturą i można jej użyć do przeliczenia." << endl;
+       cout << "Nie ma takiej temperatury.Jesli ta funkcja nie zwroci - 999.0 w wyniku, to oznacza, ze to co zwrocila jest prawidlowa temperatura i mozna jej uzyc do przeliczenia." << endl;
        return -999.0;
    }
 
    if (temp < -459.67 && stopnie == 'F') {
-       cout << "Nie ma takiej temperatury.Jeśli ta funkcja nie zwróci - 999.0 w wyniku, to oznacza, że to co zwróciła jest prawidłowątemperaturą i można jej użyć do przeliczenia." << endl;
+       cout << "Nie ma takiej temperatury.Jesli ta funkcja nie zwroci - 999.0 w wyniku, to oznacza, ze to co zwrocila jest prawidlowa temperatura i mozna jej uzyc do przeliczenia." << endl;
        return -999.0;
    }
 
