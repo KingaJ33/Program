@@ -83,6 +83,12 @@ int main()
             }
 
         }
+
+        if (opcja < 1 || opcja > 7) {
+            cout << "Nieznana opcja!" << endl;
+        }
+
+
         cout << "\nNacisnij ENTER, aby wrocic do menu ";
         cin.ignore(); 
         cin.get();
