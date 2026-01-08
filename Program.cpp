@@ -343,6 +343,8 @@ void usuwanie() {
             tab2[j] = tab2[j + 2];
         }
 
+        dataCounter -= 2;
+
         cout << "Usunieto wpis nr " << entityToRemove << "." << endl;
     }
     else {
