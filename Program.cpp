@@ -8,6 +8,8 @@
 using namespace std;
 
 void historia2();
+void usuwanie();
+
 
 float F, K, C;
 int opcja;
@@ -25,7 +27,7 @@ int main()
 
         cout << "MENU " << endl;
         cout << "Wybierz: " << endl;
-        cout << "1 - przelicz Fahr->Celsius\n2 - przelicz Fahr->Kelwin\n3 - przelicz Celsius->Fahr\n4 - przelicz Celsius->Kelwin\n5 - przelicz Kelwin->Celsius\n6 - przelicz Kelwin->Fahr\n7 - pokaz historie\n-1 - zakoncz dzialanie programu\n ";
+        cout << "1 - przelicz Fahr->Celsius\n2 - przelicz Fahr->Kelwin\n3 - przelicz Celsius->Fahr\n4 - przelicz Celsius->Kelwin\n5 - przelicz Kelwin->Celsius\n6 - przelicz Kelwin->Fahr\n7 - pokaz historie\n8 - usun wpis z historii\n-1 - zakoncz dzialanie programu\n ";
         cout << "Wybrano: ";
         cin >> opcja;
 
@@ -96,7 +98,11 @@ int main()
 
         }
 
-        if (opcja < -1 || opcja > 7) {
+        if (opcja == 8) {
+            usuwanie();
+        }
+
+        if (opcja < -1 || opcja > 8) {
             cout << "Nieznana opcja!" << endl;
         }
 
@@ -111,6 +117,7 @@ int main()
    
     return 0;
 }
+
 
 void historia(float stara, float nowa, char stary, char nowy) {
 
@@ -258,10 +265,13 @@ float check(float temp, char stopnie) {
 
 
 void historia2() {
+    system("cls");
+
     int x;
     bool czy_jest_wynik = false;
 
-    cout << "Wybierz opcję: " << endl;
+    cout << "HISTORIA" << endl;
+    cout << "Wybierz opcje: " << endl;
     cout << " 1. Tylko C- > inne\n 2. Tylko F-> inne\n 3. Tylko K-> inne\n 4. Cala historia\n";
     cin >> x;
 
@@ -294,6 +304,45 @@ void historia2() {
 
     if (czy_jest_wynik == false) {
         cout << "brak danych" << endl;
+    }
+
+}
+
+
+void usuwanie() {
+    system("cls");
+
+    cout << "USUWANIE Z HISTORII" << endl;
+
+    if (dataCounter == 0) {
+        cout << "Historia jest pusta. Nie ma co usuwac." << endl;
+        return; 
+    }
+
+    for (int i = 0; i < (dataCounter / 2); i++) {
+        int iS = i * 2;
+        int iN = i * 2 + 1;
+      
+        cout << i + 1 << ". " << tab[iS] << tab2[iS] << " = " << tab[iN] << tab2[iN] << endl;
+    }
+
+    int entityToRemove;
+    cout << "Podaj numer linii do usuniecia: " << endl;
+    cin >> entityToRemove;
+
+    if (entityToRemove > 0 && entityToRemove <= (dataCounter / 2)) {
+
+        int indexDoUsuniecia = entityToRemove * 2 - 2;
+
+        for (int j = indexDoUsuniecia; j < dataCounter - 2; j++) {
+            tab[j] = tab[j + 2];
+            tab2[j] = tab2[j + 2];
+        }
+
+        cout << "Usunieto wpis nr " << entityToRemove << "." << endl;
+    }
+    else {
+        cout << "Taki wpis nie istnieje!" << endl;
     }
 
 }
