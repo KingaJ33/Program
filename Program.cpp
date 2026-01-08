@@ -9,6 +9,7 @@ using namespace std;
 
 void historia2();
 void usuwanie();
+void modyfikacja();
 
 
 float F, K, C;
@@ -27,7 +28,7 @@ int main()
 
         cout << "MENU " << endl;
         cout << "Wybierz: " << endl;
-        cout << "1 - przelicz Fahr->Celsius\n2 - przelicz Fahr->Kelwin\n3 - przelicz Celsius->Fahr\n4 - przelicz Celsius->Kelwin\n5 - przelicz Kelwin->Celsius\n6 - przelicz Kelwin->Fahr\n7 - pokaz historie\n8 - usun wpis z historii\n-1 - zakoncz dzialanie programu\n ";
+        cout << "1 - przelicz Fahr->Celsius\n2 - przelicz Fahr->Kelwin\n3 - przelicz Celsius->Fahr\n4 - przelicz Celsius->Kelwin\n5 - przelicz Kelwin->Celsius\n6 - przelicz Kelwin->Fahr\n7 - pokaz historie\n8 - usun wpis z historii\n9 - modyfikacja wpisu z historii\n-1 - zakoncz dzialanie programu\n ";
         cout << "Wybrano: ";
         cin >> opcja;
 
@@ -102,7 +103,11 @@ int main()
             usuwanie();
         }
 
-        if (opcja < -1 || opcja > 8) {
+        if (opcja == 9) {
+            modyfikacja();
+        }
+
+        if (opcja < -1 || opcja > 9) {
             cout << "Nieznana opcja!" << endl;
         }
 
@@ -111,8 +116,7 @@ int main()
         cin.ignore(); 
         cin.get();
 
-       
-       
+
     }
    
     return 0;
@@ -346,6 +350,120 @@ void usuwanie() {
     }
 
 }
+
+void modyfikacja() {
+    system("cls");
+    cout << "MODYFIKACJA HISTORII" << endl;
+
+    if (dataCounter == 0) {
+        cout << "Historia jest pusta." << endl;
+        return;
+    }
+
+    for (int i = 0; i < (dataCounter / 2); i++) {
+        int iS = i * 2;
+        int iN = i * 2 + 1;
+        cout << i + 1 << ". " << tab[iS] << tab2[iS] << " -> " << tab[iN] << tab2[iN] << endl;
+    }
+
+    int nr;
+    cout << "Podaj numer wpisu do modyfikacji: ";
+    cin >> nr;
+
+    int maxNr = dataCounter / 2;
+    if (nr < 1 || nr > maxNr) {
+        cout << "Niepoprawny numer wpisu!" << endl;
+        return;
+    }
+
+    int iS = (nr - 1) * 2;    
+    int iN = (nr - 1) * 2 + 1;
+
+    float nowatemp;
+    char nowaskala1;
+
+    cout << "Podaj nowa wartosc temperatury " << endl;
+    cin >> nowatemp;
+
+    cout << "Podaj nowa skale dla tej temperatury (C, F, K) " << endl;
+    cin >> nowaskala1;
+
+    float test = check(nowatemp, nowaskala1);
+    if (test == -999.0) {
+        
+        return;
+    }
+
+    char skala2;
+    cout << "Na jaka skale przeliczyc temperature? (C, F, K)" << endl;
+    cin >> skala2;
+
+    float nowywynik;
+    bool przeliczono = false;
+
+    if (nowaskala1 == 'C') {
+        if (skala2 == 'F') { 
+            nowywynik = CtoF(nowatemp); 
+            przeliczono = true;
+        }
+        else if (skala2 == 'K') { 
+            nowywynik = CtoK(nowatemp);
+            przeliczono = true;
+        }
+        else if (skala2 == 'C') { 
+            nowywynik = nowatemp; 
+            przeliczono = true;
+        }
+    }
+
+    if (nowaskala1 == 'F') {
+        if (skala2 == 'K') {
+            nowywynik = FtoK(nowatemp);
+            przeliczono = true;
+        }
+        else if (skala2 == 'C') {
+            nowywynik = FtoC(nowatemp);
+            przeliczono = true;
+        }
+        else if (skala2 == 'F') {
+            nowywynik = nowatemp;
+            przeliczono = true;
+        }
+    }
+
+    if (nowaskala1 == 'K') {
+        if (skala2 == 'C') {
+            nowywynik = KtoC(nowatemp);
+            przeliczono = true;
+        }
+        else if (skala2 == 'F') {
+            nowywynik == KtoF(nowatemp);
+            przeliczono = true;
+        }
+        else if (skala2 == 'K') {
+            nowywynik = nowatemp;
+            przeliczono = true;
+        }
+    }
+    if (przeliczono) {
+        
+        tab[iS] = nowatemp;
+        tab2[iS] = nowaskala1;
+
+        tab[iN] = nowywynik;
+        tab2[iN] = skala2;
+
+        cout << "Zmodyfikowany wpis: "
+            << tab[iS] << tab2[iS] << " -> " << tab[iN] << tab2[iN] << endl;
+    }
+    else {
+        cout << "Blad: Nieznana kombinacja skal!" << endl;
+    }
+}
+
+
+
+
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
 // Debugowanie programu: F5 lub menu Debugowanie > Rozpocznij debugowanie
