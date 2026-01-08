@@ -14,8 +14,8 @@ void modyfikacja();
 
 float F, K, C;
 int opcja;
-double tab[6] = { 0 };
-char tab2[6] = { 0 };
+double tab[100] = { 0 };
+char tab2[100] = { 0 };
 int dataCounter = 0;
 
 
@@ -125,7 +125,7 @@ int main()
 
 void historia(float stara, float nowa, char stary, char nowy) {
 
-    if (dataCounter < 6) {
+    if (dataCounter < 100) {
 
         tab[dataCounter] = stara;
         tab2[dataCounter] = stary;
