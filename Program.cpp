@@ -5,13 +5,14 @@
 #include <stdlib.h>
 #include "headerFile.h"
 
-
 using namespace std;
+
+void historia2();
 
 float F, K, C;
 int opcja;
-double tab[100] = { 0 };
-char tab2[100] = { 0 };
+double tab[6] = { 0 };
+char tab2[6] = { 0 };
 int dataCounter = 0;
 
 
@@ -24,11 +25,11 @@ int main()
 
         cout << "MENU " << endl;
         cout << "Wybierz: " << endl;
-        cout << "1 - przelicz Fahr->Celsius\n2 - przelicz Fahr->Kelwin\n3 - przelicz Celsius->Fahr\n4 - przelicz Celsius->Kelwin\n5 - przelicz Kelwin->Celsius\n6 - przelicz Kelwin->Fahr\n7 - zakoncz dzialanie programu\n8 - pokaz historie\n ";
+        cout << "1 - przelicz Fahr->Celsius\n2 - przelicz Fahr->Kelwin\n3 - przelicz Celsius->Fahr\n4 - przelicz Celsius->Kelwin\n5 - przelicz Kelwin->Celsius\n6 - przelicz Kelwin->Fahr\n7 - pokaz historie\n-1 - zakoncz dzialanie programu\n ";
         cout << "Wybrano: ";
         cin >> opcja;
 
-        if (opcja == 7) {
+        if (opcja == -1) {
             return 0;
         }
 
@@ -90,19 +91,12 @@ int main()
 
         }
 
-        if (opcja == 8) {
-            for (int i = 0; i < (dataCounter/2); i++) {
-
-                int iS = i * 2;
-                int iN = i * 2 + 1;
-
-                cout << " < " << i << " > " << tab[iS] << tab2[iS] << " = " << tab[iN] << tab2[iN] << endl;
-              
-            }
+        if (opcja == 7) {
+            historia2();
 
         }
 
-        if (opcja < 1 || opcja > 8) {
+        if (opcja < -1 || opcja > 7) {
             cout << "Nieznana opcja!" << endl;
         }
 
@@ -120,7 +114,7 @@ int main()
 
 void historia(float stara, float nowa, char stary, char nowy) {
 
-    if (dataCounter < 99) {
+    if (dataCounter < 6) {
 
         tab[dataCounter] = stara;
         tab2[dataCounter] = stary;
@@ -132,7 +126,7 @@ void historia(float stara, float nowa, char stary, char nowy) {
         cout << "Zapisano wynik do historii" << endl;
     }
     else {
-        cout << "Tablica historii jest pelna!" << endl;
+        cout << "WARNING: Tablice historii sa pelne! Wynik wyswietlony, ale nie zapisany w historii." << endl;
     }
 }
 
@@ -213,7 +207,7 @@ float wyswietlanie(int x) {
 
         break;
 
-    case 7:
+    case -1:
         return 0;
 
     default:
@@ -260,6 +254,48 @@ float check(float temp, char stopnie) {
    }
 
    return temp;
+}
+
+
+void historia2() {
+    int x;
+    bool czy_jest_wynik = false;
+
+    cout << "Wybierz opcję: " << endl;
+    cout << " 1. Tylko C- > inne\n 2. Tylko F-> inne\n 3. Tylko K-> inne\n 4. Cala historia\n";
+    cin >> x;
+
+    for (int i = 0; i < (dataCounter / 2); i++) {
+
+        int iS = i * 2;      
+        int iN = i * 2 + 1;  
+        bool pokazac = false;
+
+        
+        if (x == 4) {
+            pokazac = true;
+        }
+        else if (x == 1 && tab2[iS] == 'C') {
+            pokazac = true;
+        }
+        else if (x == 2 && tab2[iS] == 'F') {
+            pokazac = true;
+        }
+        else if (x == 3 && tab2[iS] == 'K') {
+            pokazac = true;
+        }
+
+        if (pokazac == true) {
+            cout << " < " << i << " > " << tab[iS] << tab2[iS] << " = " << tab[iN] << tab2[iN] << endl;
+            czy_jest_wynik = true;
+        }
+
+    }
+
+    if (czy_jest_wynik == false) {
+        cout << "brak danych" << endl;
+    }
+
 }
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
