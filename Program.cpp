@@ -10,6 +10,7 @@ using namespace std;
 void historia2();
 void usuwanie();
 void modyfikacja();
+void losowe();
 
 
 float F, K, C;
@@ -28,7 +29,7 @@ int main()
 
         cout << "MENU " << endl;
         cout << "Wybierz: " << endl;
-        cout << "1 - przelicz Fahr->Celsius\n2 - przelicz Fahr->Kelwin\n3 - przelicz Celsius->Fahr\n4 - przelicz Celsius->Kelwin\n5 - przelicz Kelwin->Celsius\n6 - przelicz Kelwin->Fahr\n7 - pokaz historie\n8 - usun wpis z historii\n9 - modyfikacja wpisu z historii\n-1 - zakoncz dzialanie programu\n ";
+        cout << "1 - przelicz Fahr->Celsius\n2 - przelicz Fahr->Kelwin\n3 - przelicz Celsius->Fahr\n4 - przelicz Celsius->Kelwin\n5 - przelicz Kelwin->Celsius\n6 - przelicz Kelwin->Fahr\n7 - pokaz historie\n8 - usun wpis z historii\n9 - modyfikacja wpisu z historii\n10 - losowe wypelnianie historii\n-1 - zakoncz dzialanie programu\n ";
         cout << "Wybrano: ";
         cin >> opcja;
 
@@ -107,7 +108,11 @@ int main()
             modyfikacja();
         }
 
-        if (opcja < -1 || opcja > 9) {
+        if (opcja == 10) {
+            losowe();
+        }
+
+        if (opcja < -1 || opcja > 10) {
             cout << "Nieznana opcja!" << endl;
         }
 
@@ -277,6 +282,7 @@ void historia2() {
     cout << "HISTORIA" << endl;
     cout << "Wybierz opcje: " << endl;
     cout << " 1. Tylko C- > inne\n 2. Tylko F-> inne\n 3. Tylko K-> inne\n 4. Cala historia\n";
+    cout << "Wybrano: ";
     cin >> x;
 
     for (int i = 0; i < (dataCounter / 2); i++) {
@@ -461,6 +467,102 @@ void modyfikacja() {
     else {
         cout << "Blad: Nieznana kombinacja skal!" << endl;
     }
+}
+
+void losowe() {
+    system("cls");
+
+    int los;
+    int odp;
+    cout << "LOSOWE WYPELNIANIE HISTORII" << endl;
+    cout << "Podaj ile losowych wartosci przeliczyc?"<< endl;
+    cout << "Wybrano: " << endl;
+    cin >> los;
+
+
+    if ((dataCounter + los * 2) > 100) {
+
+        int wolneMiejsca = 100 - dataCounter;
+        int ileMozna = wolneMiejsca / 2;
+
+        cout << "Brak miejsca na " << los << " wpisow. Zostalo miejsca na " << ileMozna << "." << endl;
+        cout << "Czy wygenerowac tylko tyle losowek ile zostalo miejsca (wybierz 1), czy nie (wybierz 0)?" << endl;
+        cin >> odp;
+
+        if (odp == 0) {
+            return;
+        }
+        else if (odp == 1) {
+            los = ileMozna; 
+        }
+        else {
+            cout << "Niepoprawna odpowiedz - anulowano." << endl;
+            return;
+        }
+    }
+
+    for (int i = 0; i < los; i++) {
+
+       
+        int losSkala = rand() % 3;
+        char zrodloChar = ' ';
+        int x = 0;
+        double temp = 0;
+
+        
+        if (losSkala == 0) { // C
+            zrodloChar = 'C';
+            
+            x = -273 + (rand() % 1001);
+        }
+        else if (losSkala == 1) { // F
+            zrodloChar = 'F';
+           
+            x = -459 + (rand() % 1001);
+        }
+        else if (losSkala == 2) { // K
+            zrodloChar = 'K';
+           
+            x = 0 + (rand() % 1001);
+        }
+
+  
+        temp = (double)x;
+
+        
+        char celChar = ' ';
+        do {
+            int losCel = rand() % 3;
+            if (losCel == 0) celChar = 'C';
+            if (losCel == 1) celChar = 'F';
+            if (losCel == 2) celChar = 'K';
+        } while (celChar == zrodloChar);
+
+       
+        double wynik = 0;
+        if (zrodloChar == 'C') {
+            if (celChar == 'F') wynik = CtoF(temp);
+            if (celChar == 'K') wynik = CtoK(temp);
+        }
+        else if (zrodloChar == 'F') {
+            if (celChar == 'C') wynik = FtoC(temp);
+            if (celChar == 'K') wynik = FtoK(temp);
+        }
+        else if (zrodloChar == 'K') {
+            if (celChar == 'C') wynik = KtoC(temp);
+            if (celChar == 'F') wynik = KtoF(temp);
+        }
+
+       
+        tab[dataCounter] = temp;
+        tab2[dataCounter] = zrodloChar;
+        tab[dataCounter + 1] = wynik;
+        tab2[dataCounter + 1] = celChar;
+
+        dataCounter += 2;
+    }
+
+    cout << "Wygenerowano " << los << " losowych przeliczen." << endl;
 }
 
 
