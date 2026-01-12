@@ -11,8 +11,11 @@ void historia2();
 void usuwanie();
 void modyfikacja();
 void losowe();
+int convertToInteger(const char vector[], int size);
+double convertToDouble(const char vector[], int size);
 
 
+bool conversionFailed = false;
 float F, K, C;
 int opcja;
 double tab[100] = { 0 };
@@ -22,8 +25,10 @@ int dataCounter = 0;
 
 int main()
 {
+    srand(time(NULL));
 
     while (true) {
+        char tempStr[280];
 
         system("cls");
 
@@ -31,7 +36,16 @@ int main()
         cout << "Wybierz: " << endl;
         cout << "1 - przelicz Fahr->Celsius\n2 - przelicz Fahr->Kelwin\n3 - przelicz Celsius->Fahr\n4 - przelicz Celsius->Kelwin\n5 - przelicz Kelwin->Celsius\n6 - przelicz Kelwin->Fahr\n7 - pokaz historie\n8 - usun wpis z historii\n9 - modyfikacja wpisu z historii\n10 - losowe wypelnianie historii\n-1 - zakoncz dzialanie programu\n ";
         cout << "Wybrano: ";
-        cin >> opcja;
+        cin >> tempStr;
+        opcja = convertToInteger(tempStr, 280);
+
+        if (conversionFailed) {
+            cout << "To nie jest poprawna opcja menu! Sprobuj jeszcze raz." << endl;
+            cout << "\nNacisnij ENTER, aby wrocic do menu ";
+            cin.ignore();
+            cin.get();
+            continue;
+        }
 
         if (opcja == -1) {
             return 0;
@@ -125,6 +139,73 @@ int main()
     }
    
     return 0;
+}
+
+
+int convertToInteger(const char vector[], int size) {
+    int result = 0;
+    bool isNegative = false;
+    conversionFailed = false;
+
+    for (int i = 0; i < size; ++i) {
+        if (vector[i] == '\0') break;
+
+        if (isdigit(vector[i])) {
+            result = result * 10 + (vector[i] - '0');
+        }
+        else if (vector[i] == '-' && i == 0) {
+            isNegative = true;
+        }
+        else if (vector[i] == '+' && i == 0) {
+            continue;
+        }
+        else {
+            conversionFailed = true;
+            cout << "Blad: Niepoprawny znak w liczbie calkowitej!" << endl;
+            break;
+        }
+    }
+    return isNegative ? -result : result;
+}
+
+double convertToDouble(const char vector[], int size) {
+    double result = 0.0;
+    double fractionalMultiplier = 0.1;
+    bool isNegative = false;
+    bool isFractional = false;
+    bool signRecognised = false;
+    conversionFailed = false;
+
+    for (int i = 0; i < size; ++i) {
+        if (vector[i] == '\0') break;
+
+        if (isdigit(vector[i])) {
+            if (isFractional) {
+                result += (vector[i] - '0') * fractionalMultiplier;
+                fractionalMultiplier *= 0.1;
+            }
+            else {
+                result = result * 10.0 + (vector[i] - '0');
+            }
+        }
+        else if ((vector[i] == '.' || vector[i] == ',') && !isFractional) {
+            isFractional = true;
+        }
+        else if (vector[i] == '-' && !signRecognised) {
+            isNegative = true;
+            signRecognised = true;
+        }
+        else if (vector[i] == '+' && !signRecognised) {
+            signRecognised = true;
+            continue;
+        }
+        else {
+            conversionFailed = true;
+            cout << "Blad: Niepoprawny format liczby zmiennoprzecinkowej!" << endl;
+            break;
+        }
+    }
+    return isNegative ? -result : result;
 }
 
 
@@ -235,20 +316,35 @@ float wyswietlanie(int x) {
 }
 
 float pobierzF() {
-    cout << "Podaj temperature do przeliczenia \n";
-    cin >> F;
+    char str[280];
+    do {
+        cout << "Podaj temperature (Fahrenheit) do przeliczenia: ";
+        cin >> str;
+        F = (float)convertToDouble(str, 280);
+        if (conversionFailed) cout << "To nie jest prawidlowy zapis liczby! Sprobuj ponownie." << endl;
+    } while (conversionFailed);
     return F;
 }
 
 float pobierzC() {
-    cout << "Podaj temperature do przeliczenia  \n";
-    cin >> C;
+    char str[280];
+    do {
+        cout << "Podaj temperature (Celsius) do przeliczenia: ";
+        cin >> str;
+        C = (float)convertToDouble(str, 280);
+        if (conversionFailed) cout << "To nie jest prawidlowy zapis liczby! Sprobuj ponownie." << endl;
+    } while (conversionFailed);
     return C;
 }
 
 float pobierzK() {
-    cout << "Podaj temperature do przeliczenia  \n";
-    cin >> K;
+    char str[280];
+    do {
+        cout << "Podaj temperature (Kelvin) do przeliczenia: ";
+        cin >> str;
+        K = (float)convertToDouble(str, 280);
+        if (conversionFailed) cout << "To nie jest prawidlowy zapis liczby! Sprobuj ponownie." << endl;
+    } while (conversionFailed);
     return K;
 }
 
