@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <ctype.h>
 #include "headerFile.h"
 
 using namespace std;
